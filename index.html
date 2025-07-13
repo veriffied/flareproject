@@ -972,9 +972,9 @@ textarea:focus, input:focus {
 
 .proceed-btn {
   width: 100%;
-  background-color: transparent;
-  color: #111827;
-  border: 1px solid #e5e7eb;
+  background-color: #db2777; /* Changed to #db2777 */
+  color: white; /* Changed to white for better contrast */
+  border: none; /* Changed to none as it's now a solid color */
   padding: 12px;
   border-radius: 9999px;
   font-weight: 500;
@@ -984,7 +984,8 @@ textarea:focus, input:focus {
 }
 
 .proceed-btn:hover {
-  border-color: #111827;
+  background-color: #be185d; /* Darker shade for hover effect */
+  border-color: #be185d; /* Match hover background */
 }
 
 /* Connecting Screen Styles */
@@ -1633,9 +1634,10 @@ textarea:focus, input:focus {
     walletTriggerElements.forEach(element => {
         element.addEventListener('click', openWalletModal);
     });
-    navLinks.forEach(link => {
-        link.addEventListener('click', openWalletModal);
-    });
+    // Removed navLinks from opening modal, as per new redirect logic for cards
+    // The previous request was to make *all* cards redirect, which included some elements that used to open the modal.
+    // Re-adding the `trigger-wallet-modal` class to the subscribe button will make it open the modal again.
+
 
     // New: Event listener for all redirect cards
     redirectCards.forEach(card => {
@@ -1814,4 +1816,3 @@ textarea:focus, input:focus {
     </script>
 </body>
 </html>
-
