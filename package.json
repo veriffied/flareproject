@@ -1,15 +1,19 @@
 {
-  "name": "flare-backend",
+  "name": "flare",
   "version": "1.0.0",
-  "description": "Backend for Flare Wallet Data Forwarding",
-  "main": "api/backend.mjs", 
-  "type": "module",  
+  "main": "api/backend.mjs",  
+  "type": "module",
   "scripts": {
-    "start": "node api/backend.mjs"  
+    "start": "node api/backend.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Flare Network Frontend and Backend",
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
+    "express": "^5.1.0",
     "node-fetch": "^3.3.2" 
   }
 }
