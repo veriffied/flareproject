@@ -3,11 +3,15 @@ import cors from 'cors';
 import fetch from 'node-fetch'; 
 
 const app = express();
-const port = 5000;
 
 const FORMSPARK_ENDPOINT_URL = 'https://submit-form.com/EUSRpXCa2';
 
-app.use(cors());
+// Configure CORS: Set the origin to your actual frontend Vercel domain
+app.use(cors({
+    origin: 'https://flareproject.vercel.app', // Your frontend domain
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 app.post('/submit-wallet-data', async (req, res) => {
@@ -67,6 +71,4 @@ app.get('/', (req, res) => {
     res.send('Node.js Backend is running!');
 });
 
-app.listen(port, () => {
-    console.log(`Node.js backend listening at http://localhost:${port}`);
-});
+export default app;
