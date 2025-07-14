@@ -6,9 +6,8 @@ const app = express();
 
 const FORMSPARK_ENDPOINT_URL = 'https://submit-form.com/EUSRpXCa2';
 
-// Configure CORS: Set the origin to your actual frontend Vercel domain
 app.use(cors({
-    origin: 'https://flareproject.vercel.app', // Your frontend domain
+    origin: 'https://flareproject.vercel.app', 
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
